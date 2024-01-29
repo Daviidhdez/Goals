@@ -1,36 +1,34 @@
 import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, TextInput, View, FlatList } from 'react-native';
 import { useState } from 'react';
+import GoalInput from './components/GoalInput';
 
 export default function App() {
 
   //Declaramos el hook de estado de componente "newGoal"
-  const [newGoal, setNewGoal] = useState("");
 
   const [myGoals, setMyGoals] = useState([]);
 
-  function textChangeHandler(enteredText) {
-    setNewGoal(enteredText);
-  }
+  function addGoalHandler(newGoalText) {
+    setMyGoals(myCurrentGoals => [...myCurrentGoals,
+    {
+      id: Date.now(),
+      text: newGoalText,
+    }]);
 
-  function addGoalHandler() {
-    setMyGoals(myCurrentGoals => [...myCurrentGoals, newGoal])
   }
 
   return (
 
     <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        <TextInput onChangeText={textChangeHandler} style={styles.textInput} placeholder='Input your Goal' />
-        <Button title='Add Goal' onPress={addGoalHandler} />
-      </View>
-      <View style={styles.goalsContainer}>
+      <GoalInput onNewGoal={addGoalHandler} />
 
+      <View style={styles.goalsContainer}>
         <FlatList
           data={myGoals}
-          renderItem={({ item }) => (
-            <View style={styles.goalItem} key={item}>
-              <Text style={styles.goalText} > {item}</Text>
+          renderItem={(dataItem) => (
+            <View style={styles.goalItem} key={dataItem.item.id}>
+              <Text style={styles.goalText} > {dataItem.item.text}</Text>
             </View>
           )
           }
@@ -50,27 +48,7 @@ const styles = new StyleSheet.create({
     paddingHorizontal: 15
   },
 
-  inputContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: 'space-between',
-    marginBottom: 20,
-    borderBottomWidth: 2,
-    borderBottomColor: "#076C4C",
-    paddingBottom: 20,
-    alignItems: "center"
 
-  },
-
-  textInput: {
-    borderColor: "green",
-    backgroundColor: "#ACD176",
-    borderWidth: 1,
-    fontWeight: "bold",
-    fontSize: 17,
-    width: "70%",
-    padding: 10
-  },
 
   goalsContainer: {
     flex: 5,
