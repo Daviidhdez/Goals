@@ -9,6 +9,9 @@ export default function App() {
   //Declaramos el hook de estado de componente "newGoal"
 
   const [myGoals, setMyGoals] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+
+
 
   function addGoalHandler(newGoalText) {
     setMyGoals(myCurrentGoals => [...myCurrentGoals,
@@ -28,7 +31,17 @@ export default function App() {
   return (
 
     <View style={styles.container}>
-      <GoalInput onNewGoal={addGoalHandler} />
+
+      <Button
+        title='Add New Goal'
+        onPress={() => setModalVisible(true)}
+      />
+
+      <GoalInput
+        onNewGoal={addGoalHandler}
+        onCancel={() => setModalVisible(false)}
+        visible={modalVisible}
+      />
 
       <View style={styles.goalsContainer}>
         <FlatList
