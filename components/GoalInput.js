@@ -1,6 +1,6 @@
 
 import { useState } from 'react'
-import { View, TextInput, StyleSheet, Button, Modal } from 'react-native';
+import { View, TextInput, StyleSheet, Button, Modal, Image } from 'react-native';
 
 export default function GoalInput({ onNewGoal, visible, onCancel }) {
 
@@ -23,6 +23,7 @@ export default function GoalInput({ onNewGoal, visible, onCancel }) {
             animationType='slide'
         >
             <View style={styles.inputContainer}>
+                <Image source={require("../assets/img/goal.png")} style={styles.goalImg} />
                 <TextInput
                     onChangeText={textChangeHandler}
                     style={styles.textInput}
@@ -32,13 +33,14 @@ export default function GoalInput({ onNewGoal, visible, onCancel }) {
                 <View style={styles.buttonContainer}>
                     <View style={styles.button}>
                         <Button
+                            color={'#FF0303'}
                             title='Cancel'
                             onPress={() => onCancel()}
                         />
                     </View>
                     <View style={styles.button}>
-
                         <Button
+                            color={'#025F40'}
                             title='Add Goal'
                             onPress={onPressHandler}
                         />
@@ -60,12 +62,15 @@ const styles = new StyleSheet.create({
         borderBottomWidth: 2,
         borderBottomColor: "#076C4C",
         paddingBottom: 20,
-        alignItems: "center"
+        alignItems: "center",
+        backgroundColor: '#77B496'
     },
 
     textInput: {
         borderColor: "green",
         backgroundColor: "#ACD176",
+        color: '#16471E',
+        borderRadius: 15,
         borderWidth: 1,
         fontWeight: "bold",
         fontSize: 17,
@@ -83,6 +88,12 @@ const styles = new StyleSheet.create({
     button: {
         width: '30%',
         paddingLeft: 20,
+    },
+
+    goalImg: {
+        width: 150,
+        height: 150,
+        margin: 20
     }
 
 })

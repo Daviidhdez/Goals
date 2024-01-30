@@ -4,6 +4,8 @@ import { useState } from 'react';
 import GoalInput from './components/GoalInput';
 import GoalItem from './components/GoalItem';
 
+
+
 export default function App() {
 
   //Declaramos el hook de estado de componente "newGoal"
@@ -30,34 +32,38 @@ export default function App() {
 
   return (
 
-    <View style={styles.container}>
+    <>
+      <StatusBar style='light' />
 
-      <Button
-        title='Add New Goal'
-        onPress={() => setModalVisible(true)}
-      />
+      <View style={styles.container}>
 
-      <GoalInput
-        onNewGoal={addGoalHandler}
-        onCancel={() => setModalVisible(false)}
-        visible={modalVisible}
-      />
-
-      <View style={styles.goalsContainer}>
-        <FlatList
-          data={myGoals}
-          renderItem={(dataItem) => (
-            <GoalItem
-              key={dataItem.item.id}
-              goal={dataItem.item}
-              onDeleteGoal={onDeleteGoalHundler} />
-          )
-          }
+        <Button
+          color={'#45500A'}
+          title='Add New Goal'
+          onPress={() => setModalVisible(true)}
         />
 
-      </View>
-    </View>
+        <GoalInput
+          onNewGoal={addGoalHandler}
+          onCancel={() => setModalVisible(false)}
+          visible={modalVisible}
+        />
 
+        <View style={styles.goalsContainer}>
+          <FlatList
+            data={myGoals}
+            renderItem={(dataItem) => (
+              <GoalItem
+                key={dataItem.item.id}
+                goal={dataItem.item}
+                onDeleteGoal={onDeleteGoalHundler} />
+            )
+            }
+          />
+
+        </View>
+      </View>
+    </>
   );
 }
 
@@ -71,6 +77,7 @@ const styles = new StyleSheet.create({
 
   goalsContainer: {
     flex: 5,
+    paddingTop: 20
   },
 
 })
